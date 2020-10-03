@@ -1,0 +1,45 @@
+<html>
+  <head>
+   <title>json demo</title>
+   <script type="text/javascript">
+  var xmlHttpRequest;//定义一个Ajax的核心处理对象
+  function createXmlHttpRequest(){
+	 if(window.XMLHttpRequest){//表示浏览器非IE
+		 xmlHttpRequest=new XMLHttpRequest();//直接进行对象实例化
+	 }else{//ie
+		 xmlHttpRequest=new ActiveXObject("Microsoft.XMLHttp");
+	 }
+}
+window.onload=function(){
+submitForm();
+}
+function submitForm(){
+createXmlHttpRequest();//调用创建的xmlHttpRequest对象
+//设置要提交数据的路径以及定义数据的提交模式，而后使用地址重写的方式传递数据
+		xmlHttpRequest.open("post", "/JSONProject/JSONServlet");
+		xmlHttpRequest.onreadystatechange=function(){//指定当readystate状态改变时使用操作，一般都用于指定具体的回调函数。
+		
+		 if(xmlHttpRequest.status==200){
+	    	 if(xmlHttpRequest.readyState==4){//数据已经处理完毕
+	    	var obj =eval("("+xmlHttpRequest.responseText+")");
+	    	for(var x=0;x<obj.allCities.length;x++){
+	    	var optionElement=document.createElement("option");
+	    	optionElement.setAttribute("value", obj.allCities[x].id);
+	    	optionElement.appendChild(document.createTextNode(obj.allCities[x].title));
+	    	document.getElementById("city").appendChild(optionElement);
+	    	}
+	    	 
+	    	 }} };
+	    		 xmlHttpRequest.send(null);
+	}
+	
+   </script>
+   <meta charset="UTF-8">
+  </head>
+  
+  <body>
+   <div>
+     城市：<select id="city">  </select>
+     </div>
+     </body>
+     </html>

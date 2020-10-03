@@ -1,0 +1,19 @@
+<html>
+  <head>
+   <title>json demo</title>
+   <script type="text/javascript">
+   var obj="{\"dname\":\"开发部\",\"count\":10,\"emps\":[{\"empno\":0,\"ename\":\"姓名-0\"},{\"empno\":1,\"ename\":\"姓名-1\"}]}";//这个就是json对象
+ 
+    var obj=eval("("+obj+")");//将文本格式转换为json格式
+   //如果有了json对象，可以直接根据key取内容
+   for(var x=0;x<obj.emps.length;x++){
+      alert(obj.emps[x].ename+","+obj.emps[x].empno);
+   }
+   </script>
+   <meta charset="UTF-8">
+  </head>
+  
+  <body>
+   
+  </body>
+</html>
